@@ -30,7 +30,7 @@ const About = () => {
             possimus quis natus, cumque nemo aut harum exercitationem officia
             nihil corporis quibusdam rem recusandae?
           </p>
-          <Link to="/expolre">
+          <Link to="/explore">
             <button className=" mt-12 py-3 px-7 bg-emerald-500 text-white text-2xl border-none rounded-lg hover:bg-emerald-600">
               Explore
             </button>

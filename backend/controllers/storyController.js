@@ -6,6 +6,7 @@ import fs, { truncateSync } from "fs";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// api for add Stories
 export const AddStory = async (req, res) => {
   const { title, story, visitedLocation, imageUrl, visitedDate } = req.body;
   const userId = req.user._id;
@@ -38,6 +39,7 @@ export const AddStory = async (req, res) => {
   }
 };
 
+// api for get stories
 export const getStories = async (req, res) => {
   const userId = req.user;
   try {
@@ -50,6 +52,7 @@ export const getStories = async (req, res) => {
   }
 };
 
+// api for edit stories
 export const editStory = async (req, res) => {
   const { id } = req.params;
   const { title, story, visitedLocation, imageUrl, visitedDate } = req.body;
@@ -68,6 +71,11 @@ export const editStory = async (req, res) => {
     if (!travelStory) {
       return res.status(404).json({ error: true, message: "story not found" });
     }
+    if (userId !== travelStory.userId) {
+      return res
+        .status(403)
+        .json({ error: true, message: "You are not the authorized" });
+    }
 
     travelStory.title = title;
     travelStory.story = story;
@@ -81,13 +89,20 @@ export const editStory = async (req, res) => {
   }
 };
 
+// api for delete story
 export const deleteStory = async (req, res) => {
   const { id } = req.params;
+  const { userId } = req.user;
 
   try {
     const travelStory = await TravelStory.findOne({ _id: id });
     if (!travelStory) {
       return res.status(404).json({ error: true, message: "story not found" });
+    }
+    if (userId !== travelStory.userId) {
+      return res
+        .status(403)
+        .json({ error: true, message: "You are not the authorized" });
     }
 
     const imageUrl = travelStory.imageUrl;

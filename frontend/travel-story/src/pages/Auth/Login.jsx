@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // import loginImage from "../logo.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -29,16 +31,27 @@ const Login = () => {
 
       if (response.ok) {
         // Handle successful login (e.g., saving token, navigating to dashboard)
+
         console.log("Login successful:", data);
 
         // Example: Save token to localStorage
         localStorage.setItem("token", data.token);
+        toast.success(" login successfully", {
+          position: "bottom-left",
+          autoClose: 1000,
+        });
 
         // Redirect to dashboard or any other page
-        navigate("/dashBoard");
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       }
       if (!response.ok) {
         setError("Invalid username or password");
+        toast.error(" Invalid Careditials", {
+          position: "bottom-left",
+          autoClose: 1000,
+        });
       }
     } catch (error) {
       setError("An error occurred. Please try again.");
@@ -108,6 +121,7 @@ flex justify-center items-center "
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

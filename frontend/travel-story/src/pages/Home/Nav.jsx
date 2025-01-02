@@ -32,7 +32,7 @@ const Nav = () => {
         <div className="font-semibold text-black">TravelDairies</div>
         <div className="flex gap-5 text-xl justify-center items-center ">
           {/* <Link to="/">Home</Link> */}
-          <Link to="/dashBoard">Home</Link>
+          <Link to="/">Home</Link>
           <Link to="/about">About</Link>
 
           <button
@@ -41,9 +41,11 @@ const Nav = () => {
           >
             logout
           </button>
-          <div className="bg-emerald-300 text-white font-semibold px-3 py-1 rounded-full flex justify-center items-center">
-            {nameShort}
-          </div>
+          <Link to="/profile">
+            <div className="bg-emerald-300 text-white font-semibold px-3 py-1 rounded-full flex justify-center items-center">
+              {nameShort}
+            </div>
+          </Link>
         </div>
       </div>
       <hr />

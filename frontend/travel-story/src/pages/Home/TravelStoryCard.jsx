@@ -6,7 +6,6 @@ import { FaHeart } from "react-icons/fa";
 
 const TravelStoryCard = ({
   title,
-
   imgUrl,
   story,
   date,
@@ -29,7 +28,9 @@ const TravelStoryCard = ({
         <FaHeart
           className={`${
             isFavourite ? "text-red-500" : "text-white"
-          } text-[22px]  cursor-pointer hover:text-red-500 `}
+          } text-[22px]  cursor-pointer hover:${
+            isFavourite ? "text-white-500" : "text-red-500"
+          } `}
         />
       </button>
       <div className="p-4 ">

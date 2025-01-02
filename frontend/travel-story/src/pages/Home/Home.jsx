@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import Nav from "./Nav";
 import TravelStoryCard from "./TravelStoryCard";
 import { IoMdAdd } from "react-icons/io";
+import Modal from "react-modal";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AddEditTravelStory from "./AddEditTravelStory";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [allStories, setAllStories] = useState({});
@@ -16,7 +19,20 @@ const Home = () => {
     data: null,
   });
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check for token in localStorage
+    const token = localStorage.getItem("token");
+
+    // If token doesn't exist, redirect to login page
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   // get stories
+
   const getStories = async () => {
     const response = await fetch(
       "http://localhost:5000/story/get-all-stories",
@@ -62,7 +78,7 @@ const Home = () => {
   };
   useEffect(() => {
     getStories();
-  }, [allStories]);
+  }, []);
   // console.log(allStories);
 
   return (
@@ -94,6 +110,30 @@ const Home = () => {
         </div>
       </div>
 
+      {/* Add and Edit travel Modal  */}
+      <Modal
+        isOpen={openAddEditModal.isShown}
+        onRequestClose={() => {}}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0,0,0,0.5)",
+            zIndex: 1,
+          },
+        }}
+        appElement={document.getElementById("root")}
+        className="modal-box"
+      >
+        <AddEditTravelStory
+          type={openAddEditModal.type}
+          story={openAddEditModal.data}
+          onClose={() => {
+            setOpenAddEditModal({ isShown: false, type: "add", data: null });
+          }}
+          getAllTravelStories={getStories}
+        />
+      </Modal>
+
+      {/* button to add stroy  */}
       <button
         className="w-12 h-12 flex items-center justify-center rounded-full bg-emerald-600 hover:bg-emerald-300 fixed right-10 bottom-10"
         onClick={() => {

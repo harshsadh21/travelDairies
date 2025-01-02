@@ -1,6 +1,8 @@
 // import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [fullName, setFullName] = useState("");
@@ -40,10 +42,14 @@ const Signup = () => {
         // Example: Save token to localStorage
         localStorage.setItem("token", data.token);
 
-        // Redirect to dashboard or any other page
-        navigate("/dashBoard");
+        // Redirect to home or any other page
+        navigate("/");
       }
     } catch (error) {
+      toast.success("error", {
+        position: "bottom-left",
+        autoClose: 1000,
+      });
       setError("An error occurred. Please try again.");
       console.error("Error:", error);
     }
@@ -123,6 +129,7 @@ flex justify-center items-center "
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

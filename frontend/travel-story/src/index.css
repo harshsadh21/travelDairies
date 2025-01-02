@@ -9,6 +9,23 @@
 * {
   font-family: "Afacad Flux", sans-serif;
 }
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
   display: none;
+} */
+.scrollbar::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: aqua;
+  border-radius: 3px;
+}
+.scrollbar::-webkit-scrollbar-track {
+  background-color: #43ffb4;
+}
+.modal-box {
+  @apply w-[80vw] md:w-[40%] h-[80vh] bg-white rounded-lg mx-auto mt-14 p-5 overflow-scroll scrollbar z-50;
+}
+.input-label {
+  @apply text-xs text-slate-400;
 }

@@ -86,7 +86,7 @@ export const getUser = async (req, res) => {
 
 export const logout = (req, res) => {
   try {
-    res.cookie("token", "", { maxAge: 0 });
+    res.cookie("token", " ");
     return res.status(200).json({ message: "Loggout Succesfully" });
   } catch (error) {
     console.log(error.message);
